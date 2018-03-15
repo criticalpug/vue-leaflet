@@ -5,7 +5,7 @@
     <div class="map" id="map">
       <v-map :zoom=13 :center="[61.49911, 23.78712]">
         <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
-        <v-marker :lat-lng="[47.413220, -1.219482]"></v-marker>
+        <v-marker :lat-lng="[61.49911, 23.78712]"></v-marker>
       </v-map>
     </div>
   </div>
@@ -23,6 +23,7 @@ export default {
 </script>
 
 <style>
+
   @import "../../node_modules/leaflet/dist/leaflet.css";
 </style>
 
