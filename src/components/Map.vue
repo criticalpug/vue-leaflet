@@ -52,7 +52,7 @@ const accumulator = (obj, ais) => {
   if (!obj.id) {
     obj.id = ais.mmsi;
     obj.route = [];
-    obj.tooltip = `MMSI: ${ais.mmsi} \n lat: ${ais.lat} lon: ${ais.lon}`;
+    obj.tooltip = `MMSI: <a href="https://www.marinetraffic.com/en/ais/details/ships/mmsi:${ais.mmsi}" target="_blank">${ais.mmsi}</a>`;
     obj.draggable = false;
     obj.visible = true;
     obj.options = getOptions(ais);
