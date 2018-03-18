@@ -147,7 +147,7 @@ export default {
   top: 0;
   left: 0;
   width: 0;
-  height: 100vh;
+  height: 100%;
   z-index: 9999;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -166,5 +166,8 @@ export default {
   right: 10px;
   z-index: 9999;
   cursor: pointer;
+  outline: none;
+  border:none;
+  box-shadow:none;
 }
 </style>
