@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <div class="map" id="map">
+    <div class="map" id="map" v-on:click="closeMenu">
       <v-map :zoom="zoom" :center="center">
         <v-tilelayer :url="url"></v-tilelayer>
         <v-ais v-for="(ship) in ships"
@@ -10,9 +10,21 @@
           :options="ship.options">
           <v-popup :content="ship.tooltip"></v-popup>
         </v-ais>
-        <v-poly v-for="(ship) in ships" :key="`route-`+ ship.id" :lat-lngs="ship.route"></v-poly>
+        <v-poly v-for="(ship) in ships"
+          :visible="ship.visible"
+          :key="`route-`+ ship.id"
+          :lat-lngs="ship.route">
+        </v-poly>
       </v-map>
     </div>
+    <div class="menu" v-bind:class="{ 'menu-open': menuOpen }">
+      <div class="vessels">
+        <div :key="`check-`+ ship.id" v-for="(ship) in ships">
+        <label><input type="checkbox" v-model="ship.visible">{{ship.id}}</label>
+        </div>
+      </div>
+    </div>
+    <button v-on:click="toggleMenu" id="burger">=</button>
   </div>
 </template>
 
@@ -89,13 +101,17 @@ export default {
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
       ships: [],
       route: [],
+      menuOpen: false,
     };
   },
-  // methods: {
-  //   zoomChanged: function (event) {
-  //     this.zoom = event.target.getZoom();
-  //   },
-  // },
+  methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    },
+    closeMenu() {
+      this.menuOpen = false;
+    },
+  },
   mounted() {
     /* eslint-disable no-console */
     console.log('Mounted');
@@ -123,5 +139,32 @@ export default {
 #map {
   height: 100%;
   width: 100%;
+}
+
+.menu {
+  position: absolute;
+  background-color: white;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100vh;
+  z-index: 9999;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.menu-open {
+  width: 200px;
+}
+
+#burger {
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  cursor: pointer;
 }
 </style>
